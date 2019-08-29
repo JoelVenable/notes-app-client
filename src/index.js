@@ -6,9 +6,9 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import Amplify from "aws-amplify";
 import { awsConfigure } from "./config";
+import dotenv from "dotenv";
 
 Amplify.configure(awsConfigure);
-
 ReactDOM.render(
   <Router>
     <App />

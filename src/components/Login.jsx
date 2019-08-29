@@ -23,7 +23,7 @@ export const Login = () => {
       await Auth.signIn(email, password);
       alert("Logged in!");
     } catch (e) {
-      alert(e.message);
+      alert(e);
     }
   };
 

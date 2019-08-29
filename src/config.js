@@ -1,21 +1,25 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
+console.log(process.env);
+
 const vars = {
   s3: {
-    REGION: process.env.S3_BUCKET_REGION,
-    BUCKET: process.env.S3_BUCKET_NAME
+    REGION: process.env.REACT_APP_S3_BUCKET_REGION,
+    BUCKET: process.env.REACT_APP_S3_BUCKET_NAME
   },
   apiGateway: {
-    REGION: process.env.API_GATEWAY_REGION,
-    URL: process.env.API_GATEWAY_URL
+    REGION: process.env.REACT_APP_API_GATEWAY_REGION,
+    URL: process.env.REACT_APP_API_GATEWAY_URL
   },
   cognito: {
-    REGION: process.env.COGNITO_REGION,
-    USER_POOL_ID: process.env.COGNITO_USER_POOL_ID,
-    APP_CLIENT_ID: process.env.COGNITO_APP_CLIENT_ID,
-    IDENTITY_POOL_ID: process.env.IDENTITY_POOL_ID
+    REGION: process.env.REACT_APP_COGNITO_REGION,
+    USER_POOL_ID: process.env.REACT_APP_COGNITO_USER_POOL_ID,
+    APP_CLIENT_ID: process.env.REACT_APP_COGNITO_APP_CLIENT_ID,
+    IDENTITY_POOL_ID: process.env.REACT_APP_IDENTITY_POOL_ID
   }
 };
-
-
 
 export const awsConfigure = {
   Auth: {
@@ -39,4 +43,4 @@ export const awsConfigure = {
       }
     ]
   }
-}
+};
