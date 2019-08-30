@@ -15,13 +15,12 @@ export const SignUpForm = ({ handleSubmit }) => {
     );
   };
 
-  const formSubmit = e => {
+  const formSubmit = async e => {
     e.preventDefault();
     setLoading(true);
 
     await handleSubmit(email, password);
     setLoading(false);
-
   };
 
   const handleChange = e => {
@@ -29,7 +28,7 @@ export const SignUpForm = ({ handleSubmit }) => {
     if (id === "email") setEmail(value);
     if (id === "password") setPassword(value);
     if (id === "confirmPassword") setConfirmPassword(value);
-    setDisabled(!validateForm());
+    setDisabled(validateForm());
   };
 
   return (
@@ -50,7 +49,7 @@ export const SignUpForm = ({ handleSubmit }) => {
       <FormGroup controlId="confirmPassword" bsSize="Large">
         <ControlLabel>Confirm Password</ControlLabel>
         <FormControl
-          type="confirmPassword"
+          type="password"
           value={confirmPassword}
           onChange={handleChange}
         />
