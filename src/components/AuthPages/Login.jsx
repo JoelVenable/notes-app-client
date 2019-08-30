@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./login.css";
 import { Auth } from "aws-amplify";
-import { AuthContext } from "../AuthContext";
-import { LoaderButton } from "./LoaderButton";
+import { AuthContext } from "../../AuthContext";
+import { LoaderButton } from "../LoaderButton";
 
 export const Login = () => {
   const { setLoggedIn } = useContext(AuthContext);
