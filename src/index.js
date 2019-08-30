@@ -10,11 +10,11 @@ import { AuthProvider } from "./AuthContext";
 
 Amplify.configure(awsConfigure);
 ReactDOM.render(
-  <AuthProvider>
-    <Router>
+  <Router>
+    <AuthProvider>
       <App />
-    </Router>
-  </AuthProvider>,
+    </AuthProvider>
+  </Router>,
   document.getElementById("root")
 );
 
