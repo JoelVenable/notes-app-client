@@ -15,10 +15,10 @@ export const ConfirmationForm = ({ handleConfirm }) => {
   const handleChange = e => {
     const { value } = e.target;
     setCode(value);
-    setDisabled(validateConfirmationForm());
+    setDisabled(!validateConfirmationForm());
   };
 
-  const formSubmit = e => {
+  const formSubmit = async e => {
     e.preventDefault();
     setLoading(true);
     await handleConfirm(code);
