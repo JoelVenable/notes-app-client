@@ -1,14 +1,16 @@
 import React, { useState, useContext } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./login.css";
 import { Auth } from "aws-amplify";
 import { AuthContext } from "../AuthContext";
+import { LoaderButton } from "./LoaderButton";
 
 export const Login = () => {
   const { setLoggedIn } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState();
+  const [loading, setLoading] = useState(false);
 
   const validateForm = () => email.length > 0 && password.length > 0;
 
@@ -21,10 +23,12 @@ export const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setLoading(true);
     try {
       await Auth.signIn(email, password);
       setLoggedIn();
     } catch (e) {
+      setLoading(false);
       alert(e);
     }
   };
@@ -49,9 +53,15 @@ export const Login = () => {
             onChange={handleChange}
           />
         </FormGroup>
-        <Button block bsSize="large" disabled={disabled} type="submit">
-          Login
-        </Button>
+        <LoaderButton
+          block
+          bsSize="large"
+          disabled={disabled}
+          type="submit"
+          isLoading={loading}
+          text="Login"
+          loadingText="Logging in..."
+        />
       </form>
     </div>
   );
