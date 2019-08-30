@@ -5,7 +5,7 @@ import { Auth } from "aws-amplify";
 import { AuthContext } from "../AuthContext";
 
 export const Login = () => {
-  const { setAuthentication } = useContext(AuthContext);
+  const { setLoggedIn } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState();
@@ -23,7 +23,7 @@ export const Login = () => {
     e.preventDefault();
     try {
       await Auth.signIn(email, password);
-      setAuthentication(true);
+      setLoggedIn();
     } catch (e) {
       alert(e);
     }

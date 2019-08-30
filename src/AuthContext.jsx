@@ -7,6 +7,8 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authResolving, setAuthResolving] = useState(true);
 
+  const setLoggedIn = () => setIsAuthenticated(true);
+
   const getAuth = async () => {
     try {
       await Auth.currentSession();
@@ -21,13 +23,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => getAuth(), []);
 
-  const setAuthentication = () => {
+  const handleLogout = async () => {
+    await Auth.signOut();
     setIsAuthenticated(false);
   };
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, setAuthentication, authResolving }}>
+      value={{ isAuthenticated, handleLogout, authResolving, setLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );
