@@ -6,13 +6,15 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import Amplify from "aws-amplify";
 import { awsConfigure } from "./config";
-import dotenv from "dotenv";
+import { AuthProvider } from "./AuthContext";
 
 Amplify.configure(awsConfigure);
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <AuthProvider>
+    <Router>
+      <App />
+    </Router>
+  </AuthProvider>,
   document.getElementById("root")
 );
 

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./login.css";
 import { Auth } from "aws-amplify";
+import { AuthContext } from "../AuthContext";
 
 export const Login = () => {
+  const { setAuthentication } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState();
 
   const validateForm = () => email.length > 0 && password.length > 0;
 
@@ -21,7 +23,7 @@ export const Login = () => {
     e.preventDefault();
     try {
       await Auth.signIn(email, password);
-      alert("Logged in!");
+      setAuthentication(true);
     } catch (e) {
       alert(e);
     }

@@ -2,8 +2,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log(process.env);
-
 const vars = {
   s3: {
     REGION: process.env.REACT_APP_S3_BUCKET_REGION,
