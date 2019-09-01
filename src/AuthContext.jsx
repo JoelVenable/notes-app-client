@@ -78,6 +78,15 @@ export const AuthProvider = ({ children, history }) => {
     return await Auth.forgotPasswordSubmit(email, code, password);
   }
 
+  const changePassword = async (oldPassword, password) => {
+    const currentUser = await Auth.currentAuthenticatedUser();
+    return Auth.changePassword(
+      currentUser,
+      oldPassword,
+      password
+    );
+  }
+
 
   const logout = async () => {
     await Auth.signOut();
@@ -93,9 +102,10 @@ export const AuthProvider = ({ children, history }) => {
       logout,
       confirmSignUp,
       getPasswordRecoveryCode,
-      recoverPassword
+      recoverPassword,
+      changePassword
     },
-    user
+    getUser: Auth.currentAuthenticatedUser //method for the user to call
   };
 
   return (
