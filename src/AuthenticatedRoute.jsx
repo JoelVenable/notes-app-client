@@ -4,8 +4,12 @@ import { AuthContext } from './AuthContext';
 
 
 export const AuthenticatedRoute = (props) => {
-  const { status: { isAuthenticated } } = useContext(AuthContext);
+  const { status: { isAuthenticated, authResolving } } = useContext(AuthContext);
 
+  if (authResolving) return (
+    <>
+    </>
+  );
   return isAuthenticated ? (
     <Route {...props} />
   ) : <Redirect to="/login" />
