@@ -5,6 +5,7 @@ import { NotFound } from "./components/NotFound";
 import { Login } from "./components/AuthPages/Login";
 import { SignUp } from "./components/AuthPages/SignUp";
 import { RecoverPasswordManager } from "./components/AuthPages/RecoverPasswordManager";
+import { SettingsPage } from "./components/SettingsPage";
 
 export const Routes = () => (
   <Switch>
@@ -12,6 +13,7 @@ export const Routes = () => (
     <Route path="/login" exact component={Login} />
     <Route path="/signup" exact component={SignUp} />
     <Route path="/recover" exact component={RecoverPasswordManager} />
+    <Route path="/settings" exact component={SettingsPage} />
     <Route component={NotFound} />
   </Switch>
 );

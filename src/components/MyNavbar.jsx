@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { AuthContext } from "../AuthContext";
 
 export const MyNavbar = () => {
-  const { status: { isAuthenticated }, actions: {logout} } = useContext(AuthContext);
+  const { status: { isAuthenticated }, actions: { logout } } = useContext(AuthContext);
 
   return (
     <Navbar fluid collapseOnSelect>
@@ -18,7 +18,12 @@ export const MyNavbar = () => {
       <Navbar.Collapse>
         <Nav pullRight>
           {isAuthenticated ? (
-            <NavItem onClick={logout}>Logout</NavItem>
+            <>
+              <LinkContainer to="/settings">
+                <NavItem>Settings</NavItem>
+              </LinkContainer>
+              <NavItem onClick={logout}>Logout</NavItem>
+            </>
           ) : (
               <>
                 <LinkContainer to="/signup">
