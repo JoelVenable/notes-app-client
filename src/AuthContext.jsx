@@ -13,7 +13,6 @@ export const AuthProvider = ({ children, history }) => {
 
   // useEffect does not accept an ASYNC function directly.
   useEffect(() => {
-    debugger;
     (async () => {
       try {
         //  Gets the saved user information

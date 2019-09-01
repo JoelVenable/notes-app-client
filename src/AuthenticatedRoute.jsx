@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { AuthProvider } from './AuthContext';
+import { AuthContext } from './AuthContext';
 
 
 export const AuthenticatedRoute = (props) => {
