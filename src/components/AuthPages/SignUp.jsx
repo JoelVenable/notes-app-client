@@ -3,43 +3,29 @@ import "./signup.css";
 import { AuthContext } from "../../AuthContext";
 import { SignUpForm } from "./SignUpForm";
 import { ConfirmationForm } from "./ConfirmationForm";
-import { Auth } from "aws-amplify";
 
 export const SignUp = () => {
-  const { setLoggedIn } = useContext(AuthContext);
-  const [newUser, setNewUser] = useState(null);
-  const [cred, setCred] = useState(null);
+  const { actions } = useContext(AuthContext);
+  const [step, setStep] = useState(1);
 
-  const handleSubmit = async (username, password) => {
-    try {
-      setCred({ username, password });
-      const newUser = await Auth.signUp({
-        username,
-        password
-      });
-      setNewUser(newUser);
-    } catch (e) {
-      alert(e);
-    }
+  const handleSubmit = (username, password) => {
+    return actions.signUp({ username, password })
+      .then(() => setStep(2))
+      .catch(alert);
   };
 
-  const handleConfirm = async code => {
-    try {
-      await Auth.confirmSignUp(cred.username, code);
-      await Auth.signIn(cred.username, cred.password);
-      setLoggedIn();
-    } catch (e) {
-      alert(e.message);
-    }
+  const handleConfirm = code => {
+    return actions.confirmSignUp(code)
+      .catch(alert);
   };
 
   return (
     <div className="Signup">
-      {newUser ? (
-        <ConfirmationForm handleConfirm={handleConfirm} />
-      ) : (
+      {step === 1 ? (
         <SignUpForm handleSubmit={handleSubmit} />
-      )}
+      ) : (
+          <ConfirmationForm handleConfirm={handleConfirm} />
+        )}
     </div>
   );
 };

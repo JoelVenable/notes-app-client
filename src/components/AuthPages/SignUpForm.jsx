@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FormGroup, ControlLabel, FormControl } from "react-bootstrap";
 import { LoaderButton } from "../LoaderButton";
+import { validate } from "../../helpers/emailValidator";
 
 export const SignUpForm = ({ handleSubmit }) => {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ export const SignUpForm = ({ handleSubmit }) => {
 
   const validateForm = () => {
     return (
-      email.length > 0 && password.length > 0 && password === confirmPassword
+      validate(email) && password.length > 0 && password === confirmPassword
     );
   };
 
@@ -33,7 +34,7 @@ export const SignUpForm = ({ handleSubmit }) => {
 
   return (
     <form onSubmit={formSubmit}>
-      <FormGroup controlId="email" bsSize="Large">
+      <FormGroup controlId="email" bsSize="lg">
         <ControlLabel>Email</ControlLabel>
         <FormControl
           autoFocus
@@ -42,11 +43,11 @@ export const SignUpForm = ({ handleSubmit }) => {
           onChange={handleChange}
         />
       </FormGroup>
-      <FormGroup controlId="password" bsSize="Large">
+      <FormGroup controlId="password" bsSize="lg">
         <ControlLabel>Password</ControlLabel>
         <FormControl type="password" value={password} onChange={handleChange} />
       </FormGroup>
-      <FormGroup controlId="confirmPassword" bsSize="Large">
+      <FormGroup controlId="confirmPassword" bsSize="lg">
         <ControlLabel>Confirm Password</ControlLabel>
         <FormControl
           type="password"
@@ -56,7 +57,7 @@ export const SignUpForm = ({ handleSubmit }) => {
       </FormGroup>
       <LoaderButton
         block
-        bsSize="large"
+        bsSize="lg"
         disabled={disabled}
         type="submit"
         isLoading={loading}

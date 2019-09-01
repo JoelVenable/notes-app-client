@@ -1,18 +1,20 @@
 import React, { useState, useContext } from "react";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import "./login.css";
-import { Auth } from "aws-amplify";
 import { AuthContext } from "../../AuthContext";
 import { LoaderButton } from "../LoaderButton";
+import { Link } from 'react-router-dom';
+import { validate } from "../../helpers/emailValidator";
+
 
 export const Login = () => {
-  const { setLoggedIn } = useContext(AuthContext);
+  const { actions } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState();
   const [loading, setLoading] = useState(false);
 
-  const validateForm = () => email.length > 0 && password.length > 0;
+  const validateForm = () => validate(email) && password.length > 0;
 
   const handleChange = e => {
     const { id, value } = e.target;
@@ -24,19 +26,16 @@ export const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
-    try {
-      await Auth.signIn(email, password);
-      setLoggedIn();
-    } catch (e) {
-      setLoading(false);
-      alert(e);
-    }
+
+    await actions.login(email, password);
+
+    setLoading(false);
   };
 
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
-        <FormGroup controlId="email" bsSize="Large">
+        <FormGroup controlId="email" bsSize="lg">
           <ControlLabel>Email</ControlLabel>
           <FormControl
             autoFocus
@@ -45,7 +44,7 @@ export const Login = () => {
             onChange={handleChange}
           />
         </FormGroup>
-        <FormGroup controlId="password" bsSize="Large">
+        <FormGroup controlId="password" bsSize="lg">
           <ControlLabel>Password</ControlLabel>
           <FormControl
             type="password"
@@ -53,6 +52,7 @@ export const Login = () => {
             onChange={handleChange}
           />
         </FormGroup>
+        <Link to="/recover">Forgot password?</Link>
         <LoaderButton
           block
           bsSize="large"
